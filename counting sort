@@ -1,0 +1,243 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.util.*;
+public class Main {
+
+    public static class Game {
+        private String name;
+        private String category;
+        private int price;
+        private int quality;
+
+        public Game(String name, String category, int price, int quality) {
+            this.name = name;
+            this.category = category;
+            this.price = price;
+            this.quality = quality;
+        }
+
+        public String getName() { return name; }
+        public String getCategory() { return category; }
+        public int getPrice() { return price; }
+        public int getQuality() { return quality; }
+    }
+
+    public static class Dataset {
+        private ArrayList<Game> games;
+        private String sortedByAttribute = " ";
+
+        public Dataset(ArrayList<Game> games) {
+            this.games = games;
+        }
+
+        public void sortByAlgorithm(String algorithm, String attribute) {
+            if (!attribute.equals("price") && !attribute.equals("quality") && !attribute.equals("category")) {
+                attribute = "price";
+            }
+
+            if (algorithm.equals("countingSort") && attribute.equals("quality")) {
+                countingSortByQuality();
+                return;
+            }
+
+            sortedByAttribute = attribute;
+
+            Comparator<Game> comparador;
+            switch (attribute) {
+                case "quality":
+                    comparador = Comparator.comparingInt(Game::getQuality);
+                    break;
+                case "category":
+                    comparador = Comparator.comparing(Game::getCategory);
+                    break;
+                default:
+                    comparador = Comparator.comparingInt(Game::getPrice);
+            }
+
+            switch (algorithm) {
+                case "bubbleSort":
+                    bubbleSort(comparador);
+                    break;
+                case "insertionSort":
+                    insertionSort(comparador);
+                    break;
+                case "selectionSort":
+                    selectionSort(comparador);
+                    break;
+                case "mergeSort":
+                    games = mergeSort(games, comparador);
+                    break;
+                case "quickSort":
+                    quickSort(0, games.size() - 1, comparador);
+                    break;
+                default:
+                    Collections.sort(games, comparador);
+            }
+        }
+
+        private void bubbleSort(Comparator<Game> comp) {
+            for (int i = 0; i < games.size() - 1; i++) {
+                for (int j = 0; j < games.size() - i - 1; j++) {
+                    if (comp.compare(games.get(j), games.get(j + 1)) > 0) {
+                        Game temp = games.get(j);
+                        games.set(j, games.get(j + 1));
+                        games.set(j + 1, temp);
+                    }
+                }
+            }
+        }
+
+        private void insertionSort(Comparator<Game> comp) {
+            for (int i = 1; i < games.size(); i++) {
+                Game key = games.get(i);
+                int j = i - 1;
+                while (j >= 0 && comp.compare(games.get(j), key) > 0) {
+                    games.set(j + 1, games.get(j));
+                    j--;
+                }
+                games.set(j + 1, key);
+            }
+        }
+
+        private void selectionSort(Comparator<Game> comp) {
+            for (int i = 0; i < games.size() - 1; i++) {
+                int minIdx = i;
+                for (int j = i + 1; j < games.size(); j++) {
+                    if (comp.compare(games.get(j), games.get(minIdx)) < 0) {
+                        minIdx = j;
+                    }
+                }
+                Game temp = games.get(i);
+                games.set(i, games.get(minIdx));
+                games.set(minIdx, temp);
+            }
+        }
+
+        private ArrayList<Game> mergeSort(ArrayList<Game> list, Comparator<Game> comp) {
+            if (list.size() <= 1) return list;
+            int mid = list.size() / 2;
+            ArrayList<Game> left = mergeSort(new ArrayList<>(list.subList(0, mid)), comp);
+            ArrayList<Game> right = mergeSort(new ArrayList<>(list.subList(mid, list.size())), comp);
+            return merge(left, right, comp);
+        }
+
+        private ArrayList<Game> merge(ArrayList<Game> left, ArrayList<Game> right, Comparator<Game> comp) {
+            ArrayList<Game> result = new ArrayList<>();
+            int i = 0, j = 0;
+            while (i < left.size() && j < right.size()) {
+                if (comp.compare(left.get(i), right.get(j)) <= 0) {
+                    result.add(left.get(i++));
+                } else {
+                    result.add(right.get(j++));
+                }
+            }
+            while (i < left.size()) result.add(left.get(i++));
+            while (j < right.size()) result.add(right.get(j++));
+            return result;
+        }
+
+        private void quickSort(int low, int high, Comparator<Game> comp) {
+            if (low < high) {
+                int pi = partition(low, high, comp);
+                quickSort(low, pi - 1, comp);
+                quickSort(pi + 1, high, comp);
+            }
+        }
+
+        private int partition(int low, int high, Comparator<Game> comp) {
+            Game pivot = games.get(high);
+            int i = low - 1;
+            for (int j = low; j < high; j++) {
+                if (comp.compare(games.get(j), pivot) <= 0) {
+                    i++;
+                    Game temp = games.get(i);
+                    games.set(i, games.get(j));
+                    games.set(j, temp);
+                }
+            }
+            Game temp = games.get(i + 1);
+            games.set(i + 1, games.get(high));
+            games.set(high, temp);
+            return i + 1;
+        }
+
+        private void countingSortByQuality() {
+            int maxQuality = 100;
+            ArrayList<ArrayList<Game>> count = new ArrayList<>(maxQuality + 1);
+            for (int i = 0; i <= maxQuality; i++) count.add(new ArrayList<>());
+            for (Game g : games) {
+                count.get(g.getQuality()).add(g);
+            }
+            games.clear();
+            for (int i = 0; i <= maxQuality; i++) {
+                games.addAll(count.get(i));
+            }
+            sortedByAttribute = "quality";
+        }
+    }
+
+    public static class generateData {
+        static String[] palabras = {"Dragon", "Quest", "Empire", "Galaxy", "Legends", "Warrior"};
+        static String[] categorias = {"Acción", "Aventura", "Estrategia", "RPG", "Simulación", "Deportes"};
+        static Random rand = new Random();
+
+        public static ArrayList<Game> generar(int n) {
+            ArrayList<Game> lista = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                String nombre = palabras[rand.nextInt(palabras.length)] + palabras[rand.nextInt(palabras.length)];
+                String categoria = categorias[rand.nextInt(categorias.length)];
+                int price = rand.nextInt(70001);
+                int quality = rand.nextInt(101);
+                lista.add(new Game(nombre, categoria, price, quality));
+            }
+            return lista;
+        }
+    }
+    public static void benchmarkSorting(int datasetSize) {
+        System.out.println("\n=== BENCHMARK ORDENAMIENTO - Dataset tamaño: " + datasetSize + " ===");
+
+        String[] algorithms = {"bubbleSort", "insertionSort", "selectionSort", "mergeSort", "quickSort", "collectionsSort", "countingSort"};
+        String[] attributes = {"price", "category", "quality"};
+
+        for (String attribute : attributes) {
+            System.out.println("\n--- Ordenando por " + attribute + " ---");
+
+            for (String algorithm : algorithms) {
+
+                
+                if (algorithm.equals("countingSort") && !attribute.equals("quality")) {
+                    continue;
+                }
+
+                long totalTime = 0;
+                int iterations = 3;
+
+                for (int i = 0; i < iterations; i++) {
+                    ArrayList<Game> games = generateData.generar(datasetSize);
+                    Dataset dataset = new Dataset(games);
+
+                    long startTime = System.currentTimeMillis();
+                    dataset.sortByAlgorithm(algorithm, attribute);
+                    long endTime = System.currentTimeMillis();
+
+                    totalTime += (endTime - startTime);
+                }
+
+                long averageTime = totalTime / iterations;
+
+                if (averageTime > 300000) {
+                    System.out.println(algorithm + ": más de 300 segundos");
+                } else {
+                    System.out.println(algorithm + ": " + averageTime + " ms (promedio)");
+                }
+            }
+        }
+    }
+    public static void main(String[] args) {
+        benchmarkSorting(100000); 
+    }
+}
