@@ -1,0 +1,94 @@
+=== BENCHMARK ORDENAMIENTO - Dataset tamaño: 100 ===
+
+--- Ordenando por price ---
+bubbleSort ordenando por price - Tiempo: 1 ms
+bubbleSort ordenando por price - Tiempo: 1 ms
+bubbleSort ordenando por price - Tiempo: 0 ms
+bubbleSort: 2 ms (promedio)
+
+insertionSort ordenando por price - Tiempo: 0 ms
+insertionSort ordenando por price - Tiempo: 0 ms
+insertionSort ordenando por price - Tiempo: 0 ms
+insertionSort: 0 ms (promedio)
+
+selectionSort ordenando por price - Tiempo: 1 ms
+selectionSort ordenando por price - Tiempo: 1 ms
+selectionSort ordenando por price - Tiempo: 0 ms
+selectionSort: 0 ms (promedio)
+
+mergeSort ordenando por price - Tiempo: 1 ms
+mergeSort ordenando por price - Tiempo: 0 ms
+mergeSort ordenando por price - Tiempo: 0 ms
+mergeSort: 0 ms (promedio)
+
+quickSort ordenando por price - Tiempo: 0 ms
+quickSort ordenando por price - Tiempo: 0 ms
+quickSort ordenando por price - Tiempo: 1 ms
+quickSort: 0 ms (promedio)
+
+collectionsSort ordenando por price - Tiempo: 0 ms
+collectionsSort ordenando por price - Tiempo: 0 ms
+collectionsSort ordenando por price - Tiempo: 0 ms
+collectionsSort: 0 ms (promedio)
+
+--- Ordenando por category ---
+bubbleSort ordenando por category - Tiempo: 1 ms
+bubbleSort ordenando por category - Tiempo: 1 ms
+bubbleSort ordenando por category - Tiempo: 0 ms
+bubbleSort: 1 ms (promedio)
+
+insertionSort ordenando por category - Tiempo: 1 ms
+insertionSort ordenando por category - Tiempo: 0 ms
+insertionSort ordenando por category - Tiempo: 0 ms
+insertionSort: 0 ms (promedio)
+
+selectionSort ordenando por category - Tiempo: 1 ms
+selectionSort ordenando por category - Tiempo: 0 ms
+selectionSort ordenando por category - Tiempo: 1 ms
+selectionSort: 0 ms (promedio)
+
+mergeSort ordenando por category - Tiempo: 0 ms
+mergeSort ordenando por category - Tiempo: 0 ms
+mergeSort ordenando por category - Tiempo: 0 ms
+mergeSort: 0 ms (promedio)
+
+quickSort ordenando por category - Tiempo: 0 ms
+quickSort ordenando por category - Tiempo: 0 ms
+quickSort ordenando por category - Tiempo: 1 ms
+quickSort: 0 ms (promedio)
+
+collectionsSort ordenando por category - Tiempo: 0 ms
+collectionsSort ordenando por category - Tiempo: 0 ms
+collectionsSort ordenando por category - Tiempo: 0 ms
+collectionsSort: 0 ms (promedio)
+
+--- Ordenando por quality ---
+bubbleSort ordenando por quality - Tiempo: 0 ms
+bubbleSort ordenando por quality - Tiempo: 1 ms
+bubbleSort ordenando por quality - Tiempo: 1 ms
+bubbleSort: 1 ms (promedio)
+
+insertionSort ordenando por quality - Tiempo: 0 ms
+insertionSort ordenando por quality - Tiempo: 0 ms
+insertionSort ordenando por quality - Tiempo: 1 ms
+insertionSort: 0 ms (promedio)
+
+selectionSort ordenando por quality - Tiempo: 0 ms
+selectionSort ordenando por quality - Tiempo: 1 ms
+selectionSort ordenando por quality - Tiempo: 0 ms
+selectionSort: 0 ms (promedio)
+
+mergeSort ordenando por quality - Tiempo: 0 ms
+mergeSort ordenando por quality - Tiempo: 0 ms
+mergeSort ordenando por quality - Tiempo: 0 ms
+mergeSort: 0 ms (promedio)
+
+quickSort ordenando por quality - Tiempo: 0 ms
+quickSort ordenando por quality - Tiempo: 0 ms
+quickSort ordenando por quality - Tiempo: 0 ms
+quickSort: 0 ms (promedio)
+
+collectionsSort ordenando por quality - Tiempo: 0 ms
+collectionsSort ordenando por quality - Tiempo: 0 ms
+collectionsSort ordenando por quality - Tiempo: 0 ms
+collectionsSort: 0 ms (promedio)
